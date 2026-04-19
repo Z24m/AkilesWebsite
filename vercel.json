@@ -7,7 +7,19 @@
   },
   "rewrites": [
     {
-      "source": "/((?!api/|Public/|.*\\.css|.*\\.js|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.gif|.*\\.svg|.*\\.ico|.*\\.woff|.*\\.woff2|.*\\.ttf|.*\\.eot).+)",
+      "source": "/api/(.*)",
+      "destination": "server.js"
+    },
+    {
+      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "destination": "/$1"
+    },
+    {
+      "source": "/Public/(.*)",
+      "destination": "/Public/$1"
+    },
+    {
+      "source": "/(.*)",
       "destination": "server.js"
     }
   ],
