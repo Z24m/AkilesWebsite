@@ -1,0 +1,48 @@
+
+========================================
+NEW MESSAGE - 2026-04-19T03:34:22.009Z
+========================================
+Name: Sample User
+Email: Sample@gmail.com
+Phone: 09123218912
+Subject: Quotation
+Message:
+I would like to know how much is the transpo for office appliances from Cavite to Manila
+========================================
+
+
+========================================
+NEW MESSAGE - 2026-04-19T04:05:39.686Z
+========================================
+Name: Test User
+Email: Test@gmail.com
+Phone: 09564234532
+Subject: Quotation
+Message:
+I want to know if how much is the price of transporting office appliances from Cavite to Manila
+========================================
+
+
+========================================
+NEW MESSAGE - 2026-04-19T04:09:28.341Z
+========================================
+Name: Test User
+Email: Test@gmail.com
+Phone: 09564234532
+Subject: Quotation
+Message:
+Test
+========================================
+
+
+========================================
+NEW MESSAGE - 2026-04-19T04:13:07.770Z
+========================================
+Name: Test User
+Email: Test@gmail.com
+Phone: 09123218912
+Subject: q
+Message:
+test
+========================================
+
