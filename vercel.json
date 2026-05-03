@@ -23,11 +23,43 @@
       "destination": "/$1"
     },
     {
-      "source": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
+      "source": "/(.*\\.png)",
       "destination": "/$1"
     },
     {
-      "source": "/(.*\\.(woff|woff2|ttf|eot))",
+      "source": "/(.*\\.jpg)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.jpeg)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.gif)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.svg)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.ico)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.woff)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.woff2)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.ttf)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.eot)",
       "destination": "/$1"
     },
     {
