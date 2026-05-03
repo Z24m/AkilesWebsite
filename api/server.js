@@ -359,27 +359,6 @@ app.use((err, req, res, next) => {
 });
 
 // ============================================
-// START SERVER
+// VERCEL SERVERLESS FUNCTION EXPORT
 // ============================================
-const server = app.listen(PORT, () => {
-    console.log(` AKILES Website Server running on http://localhost:${PORT}`);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('SIGTERM received, shutting down gracefully...');
-    server.close(() => {
-        db.close();
-        process.exit(0);
-    });
-});
-
-process.on('SIGINT', () => {
-    console.log('SIGINT received, shutting down gracefully...');
-    server.close(() => {
-        db.close();
-        process.exit(0);
-    });
-});
-
 module.exports = app;
