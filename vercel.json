@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "server.js": {
+    "api/server.js": {
       "maxDuration": 10
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "server.js"
+      "destination": "/api/server.js"
     },
     {
       "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
@@ -20,7 +20,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "server.js"
+      "destination": "/api/server.js"
     }
   ],
   "headers": [
