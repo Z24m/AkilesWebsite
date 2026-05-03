@@ -221,11 +221,21 @@ app.get('/api/health', (req, res) => {
 
 // Contact form submission
 app.post('/api/v1/contact', async (req, res) => {
+    console.log('Contact form submission received:', {
+        method: req.method,
+        url: req.url,
+        headers: req.headers,
+        body: req.body
+    });
+
     try {
         const { name, email, phone, subject, message } = req.body;
 
+        console.log('Parsed form data:', { name, email, phone, subject, message });
+
         // Basic validation
         if (!name || !email || !message) {
+            console.log('Validation failed - missing required fields');
             return res.status(400).json({
                 success: false,
                 error: 'Name, email, and message are required'
@@ -330,7 +340,8 @@ A PDF copy has been saved to the contact-pdfs folder.`
         console.error('Error processing contact form:', error);
         res.status(500).json({
             success: false,
-            error: 'Failed to process contact form'
+            error: 'Failed to process contact form',
+            details: error.message
         });
     }
 });
