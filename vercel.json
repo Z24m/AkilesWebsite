@@ -15,7 +15,7 @@
       "destination": "/Public/$1"
     },
     {
-      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "source": "/(.*\\\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
       "destination": "/$1"
     },
     {
