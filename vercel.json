@@ -1,4 +1,67 @@
 {
-  "source": "/:path*.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)",
-  "destination": "/public/:path*.$1"
+  "version": 2,
+  "functions": {
+    "api/server.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/server.js"
+    },
+    {
+      "source": "/Public/(.*)",
+      "destination": "/Public/$1"
+    },
+    {
+      "source": "/style.css",
+      "destination": "/style.css"
+    },
+    {
+      "source": "/(.*\\.js)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*\\.(woff|woff2|ttf|eot))",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/server.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/style.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        }
+      ]
+    },
+    {
+      "source": "/Public/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ]
 }
