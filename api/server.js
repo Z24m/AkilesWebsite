@@ -22,11 +22,11 @@ const EMAIL_RECIPIENT = 'w305644@gmail.com';
 
 // Outlook Mail transporter configuration
 const transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
+    host: 'smtp.office365.com',
     port: 587,
     secure: false, // use TLS
     tls: {
-        ciphers: 'SSLv3'
+        rejectUnauthorized: false
     },
     auth: {
         user: process.env.OUTLOOK_EMAIL,
