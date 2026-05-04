@@ -15,6 +15,10 @@
       "destination": "/Public/$1"
     },
     {
+      "source": "/images/(.*)",
+      "destination": "/Public/images/$1"
+    },
+    {
       "source": "/style.css",
       "destination": "/style.css"
     },
