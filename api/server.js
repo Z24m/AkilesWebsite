@@ -17,15 +17,8 @@ const PORT = process.env.PORT || 5000;
 // Email recipient
 const EMAIL_RECIPIENT = 'w305644@gmail.com';
 
-// PDF folder - create if doesn't exist
-const PDF_FOLDER = path.join(__dirname, 'contact-pdfs');
-if (!fs.existsSync(PDF_FOLDER)) {
-    fs.mkdirSync(PDF_FOLDER, { recursive: true });
-    console.log('Created PDF folder:', PDF_FOLDER);
-}
-
-// Log file path
-const MESSAGES_LOG_FILE = path.join(__dirname, 'contact-messages.txt');
+// Note: File system operations disabled for Vercel serverless environment
+// PDF generation and file logging not supported in serverless functions
 
 // Outlook Mail transporter configuration
 const transporter = nodemailer.createTransport({
@@ -41,143 +34,19 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Helper function to save message to text file
-function saveMessageToFile(messageData) {
-    const timestamp = new Date().toISOString();
-    const logEntry = `
-========================================
-NEW MESSAGE - ${timestamp}
-========================================
-Name: ${messageData.name}
-Email: ${messageData.email}
-Phone: ${messageData.phone || 'Not provided'}
-Subject: ${messageData.subject || 'General Inquiry'}
-Message:
-${messageData.message}
-========================================
-
-`;
-    fs.appendFileSync(MESSAGES_LOG_FILE, logEntry);
-    console.log('Message saved to:', MESSAGES_LOG_FILE);
-}
-
-// Helper function to create PDF with AKILES theme
-function createMessagePDF(messageData) {
-    return new Promise((resolve, reject) => {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const filename = `message-${timestamp}.pdf`;
-        const filepath = path.join(PDF_FOLDER, filename);
-        
-        const doc = new PDFDocument();
-        const stream = fs.createWriteStream(filepath);
-        
-        doc.pipe(stream);
-        
-        // AKILES Brand Colors
-        const primaryBlue = '#003d7a';
-        const accentOrange = '#ff6b35';
-        const lightGray = '#f5f5f5';
-        const darkGray = '#333333';
-        
-        // Header background
-        doc.rect(0, 0, 612, 120).fill(primaryBlue);
-        
-        // Company Logo
-        const logoPath = path.join(__dirname, 'Public', 'images', 'Akiles.png');
-        if (fs.existsSync(logoPath)) {
-            doc.image(logoPath, 50, 25, { width: 60 });
-        }
-        
-        // Header text
-        doc.fillColor('white').fontSize(28).font('Helvetica-Bold');
-        doc.text('AKILES', 120, 35);
-        doc.fontSize(14).font('Helvetica');
-        doc.text('Hauling Services', 120, 70);
-        doc.fontSize(10);
-        doc.text('Transporting Your Business with Commitment and Excellence', 120, 95);
-        
-        // Orange accent line
-        doc.rect(0, 120, 612, 5).fill(accentOrange);
-        
-        // Document title
-        doc.fillColor(primaryBlue).fontSize(20).font('Helvetica-Bold');
-        doc.text('Contact Form Submission', 50, 145);
-        
-        // Date with icon-like styling
-        doc.fillColor(accentOrange).fontSize(12).font('Helvetica-Bold');
-        doc.text('Date:', 50, 185);
-        doc.fillColor(darkGray).font('Helvetica');
-        doc.text(`${new Date().toLocaleString()}`, 90, 185);
-        
-        // Section divider
-        doc.rect(50, 210, 512, 1).fill('#dddddd');
-        
-        // Contact Information Section
-        doc.fillColor(primaryBlue).fontSize(16).font('Helvetica-Bold');
-        doc.text('Contact Information', 50, 230);
-        
-        // Info box background
-        doc.roundedRect(50, 255, 512, 110, 5).fill(lightGray);
-        
-        // Contact details
-        doc.fillColor(accentOrange).fontSize(12).font('Helvetica-Bold');
-        let yPos = 270;
-        doc.text('Name:', 70, yPos);
-        doc.fillColor(darkGray).font('Helvetica');
-        doc.text(messageData.name, 120, yPos);
-        
-        yPos += 25;
-        doc.fillColor(accentOrange).font('Helvetica-Bold');
-        doc.text('Email:', 70, yPos);
-        doc.fillColor(darkGray).font('Helvetica');
-        doc.text(messageData.email, 120, yPos);
-        
-        yPos += 25;
-        doc.fillColor(accentOrange).font('Helvetica-Bold');
-        doc.text('Phone:', 70, yPos);
-        doc.fillColor(darkGray).font('Helvetica');
-        doc.text(messageData.phone || 'Not provided', 120, yPos);
-        
-        yPos += 25;
-        doc.fillColor(accentOrange).font('Helvetica-Bold');
-        doc.text('Subject:', 70, yPos);
-        doc.fillColor(darkGray).font('Helvetica');
-        doc.text(messageData.subject || 'General Inquiry', 130, yPos);
-        
-        // Message Section
-        yPos = 385;
-        doc.fillColor(primaryBlue).fontSize(16).font('Helvetica-Bold');
-        doc.text('Message', 50, yPos);
-        
-        // Message box
-        yPos += 30;
-        doc.roundedRect(50, yPos, 512, 150, 5).stroke('#dddddd').lineWidth(1);
-        doc.fillColor(darkGray).fontSize(11).font('Helvetica');
-        
-        // Handle multiline messages
-        const messageLines = messageData.message.split('\n');
-        yPos += 15;
-        messageLines.forEach(line => {
-            doc.text(line, 65, yPos, { width: 482 });
-            yPos += 18;
-        });
-        
-        // Footer
-        doc.rect(0, 750, 612, 42).fill(primaryBlue);
-        doc.fillColor('white').fontSize(10).font('Helvetica');
-        doc.text('© 2026 AKILES Hauling Services. All rights reserved.', 50, 765);
-        doc.text('Cabuyao, Laguna, Philippines', 50, 780);
-        
-        doc.end();
-        
-        stream.on('finish', () => {
-            console.log('PDF created:', filepath);
-            resolve(filepath);
-        });
-        
-        stream.on('error', reject);
+// Helper function to log message (serverless compatible)
+function logMessage(messageData) {
+    console.log('Contact form submission:', {
+        timestamp: new Date().toISOString(),
+        name: messageData.name,
+        email: messageData.email,
+        phone: messageData.phone || 'Not provided',
+        subject: messageData.subject || 'General Inquiry',
+        message: messageData.message
     });
 }
+
+// Note: PDF generation disabled for serverless environment
 
 // Initialize SQLite database
 const db = new sqlite3.Database(':memory:');
@@ -429,7 +298,50 @@ async function handleContact(req, res) {
             });
         }
         
-        // Simulate successful submission
+        // Log the message (serverless compatible)
+        logMessage({ name, email, phone, subject, message });
+        
+        // Send email notification if configured
+        if (process.env.OUTLOOK_EMAIL && process.env.OUTLOOK_PASSWORD) {
+            try {
+                const mailOptions = {
+                    from: `"AKILES Website" <${process.env.OUTLOOK_EMAIL}>`,
+                    to: EMAIL_RECIPIENT,
+                    replyTo: email,
+                    subject: `New Contact Form: ${subject || 'General Inquiry'}`,
+                    html: `
+                        <h2>New Message from AKILES Website</h2>
+                        <p><strong>Name:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+                        <p><strong>Subject:</strong> ${subject || 'General Inquiry'}</p>
+                        <hr>
+                        <p><strong>Message:</strong></p>
+                        <p>${message.replace(/\n/g, '<br>')}</p>
+                        <hr>
+                        <p><em>Submitted on: ${new Date().toLocaleString()}</em></p>
+                    `,
+                    text: `New Message from AKILES Website
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Subject: ${subject || 'General Inquiry'}
+
+Message:
+${message}
+
+Submitted: ${new Date().toLocaleString()}`
+                };
+
+                await transporter.sendMail(mailOptions);
+                console.log('Email sent to:', EMAIL_RECIPIENT);
+            } catch (emailErr) {
+                console.error('Failed to send email:', emailErr);
+                // Continue even if email fails
+            }
+        }
+        
         console.log('Contact form processed successfully:', { name, email });
         
         return res.status(200).json({
