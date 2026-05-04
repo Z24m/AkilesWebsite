@@ -20,17 +20,12 @@ const EMAIL_RECIPIENT = 'w305644@gmail.com';
 // Note: File system operations disabled for Vercel serverless environment
 // PDF generation and file logging not supported in serverless functions
 
-// Outlook Mail transporter configuration
+// Gmail Mail transporter configuration (more reliable)
 const transporter = nodemailer.createTransport({
-    host: 'smtp.office365.com',
-    port: 587,
-    secure: false, // use TLS
-    tls: {
-        rejectUnauthorized: false
-    },
+    service: 'gmail',
     auth: {
-        user: process.env.OUTLOOK_EMAIL,
-        pass: process.env.OUTLOOK_PASSWORD
+        user: process.env.GMAIL_EMAIL || process.env.OUTLOOK_EMAIL,
+        pass: process.env.GMAIL_PASSWORD || process.env.OUTLOOK_PASSWORD
     }
 });
 
