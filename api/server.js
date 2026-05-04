@@ -219,11 +219,13 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Contact form submission
+// Contact form submission - handle both direct and rewritten paths
 app.post('/api/v1/contact', async (req, res) => {
     console.log('Contact form submission received:', {
         method: req.method,
         url: req.url,
+        originalUrl: req.originalUrl,
+        path: req.path,
         headers: req.headers,
         body: req.body
     });
@@ -344,6 +346,21 @@ A PDF copy has been saved to the contact-pdfs folder.`
             details: error.message
         });
     }
+});
+
+// Fallback contact route for Vercel serverless environment
+app.post('/contact', async (req, res) => {
+    console.log('Fallback contact route triggered:', {
+        method: req.method,
+        url: req.url,
+        originalUrl: req.originalUrl,
+        path: req.path,
+        headers: req.headers,
+        body: req.body
+    });
+
+    // Forward to main contact handler
+    return app._router.handle({ ...req, url: '/api/v1/contact', path: '/api/v1/contact' }, res);
 });
 
 // Serve main page
