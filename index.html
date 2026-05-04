@@ -15,6 +15,11 @@
             <img src="/Public/images/Akiles.png" alt="AKILES Logo" style="width: 40px; height: 40px; margin-right: 10px;">
             Transporting Your Business with Commitment and Excellence
         </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -409,9 +414,37 @@
         <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">Transporting Your Business with Commitment and Excellence</p>
     </footer>
 
-    <!-- Contact Form Handler -->
+    <!-- Mobile Navigation and Contact Form Handler -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile navigation toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navUl = document.querySelector('nav ul');
+            
+            if (mobileMenuToggle && navUl) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navUl.classList.toggle('active');
+                });
+                
+                // Close mobile menu when clicking on a link
+                const navLinks = document.querySelectorAll('nav a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuToggle.classList.remove('active');
+                        navUl.classList.remove('active');
+                    });
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target)) {
+                        mobileMenuToggle.classList.remove('active');
+                        navUl.classList.remove('active');
+                    }
+                });
+            }
+            
             // Contact form submission
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
