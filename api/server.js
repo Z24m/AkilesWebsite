@@ -219,7 +219,7 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Contact form submission - handle both direct and rewritten paths
+// Contact form submission - handle Vercel serverless function routing
 app.post('/api/v1/contact', async (req, res) => {
     console.log('Contact form submission received:', {
         method: req.method,
@@ -229,6 +229,9 @@ app.post('/api/v1/contact', async (req, res) => {
         headers: req.headers,
         body: req.body
     });
+    
+    // Set JSON response headers
+    res.setHeader('Content-Type', 'application/json');
 
     try {
         const { name, email, phone, subject, message } = req.body;
@@ -372,17 +375,26 @@ app.get('/', (req, res) => {
 // ERROR HANDLING
 // ============================================
 app.use((req, res) => {
+    console.log('Route not found:', {
+        method: req.method,
+        url: req.url,
+        path: req.path
+    });
+    res.setHeader('Content-Type', 'application/json');
     res.status(404).json({
         success: false,
-        error: 'Route not found'
+        error: 'Route not found',
+        path: req.path
     });
 });
 
 app.use((err, req, res, next) => {
-    console.error('Error:', err);
+    console.error('Server error:', err);
+    res.setHeader('Content-Type', 'application/json');
     res.status(500).json({
         success: false,
-        error: 'Something went wrong!'
+        error: 'Something went wrong!',
+        details: err.message
     });
 });
 
