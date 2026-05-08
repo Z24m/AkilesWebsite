@@ -273,7 +273,6 @@
 
         /* About Section */
         .about {
-            background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
             color: var(--white);
         }
 
@@ -363,6 +362,7 @@
 
         /* Services Section */
         .services {
+            background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
             background: var(--white);
         }
 
@@ -491,6 +491,9 @@
         }
 
         /* Team Section Cards */
+        .team{
+            background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
+        }
         .team-card {
             background: var(--bg-light);
             padding: 1.5rem;
@@ -578,6 +581,7 @@
 
         /* CTA Section */
         .cta-section {
+            background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
             background-image: linear-gradient(135deg, rgba(0, 61, 122, 0.6) 0%, rgba(0, 82, 163, 0.6) 100%), url('/images/akilesbg.jpg');
             background-size: auto, cover;
             background-position: 0 0, center;
@@ -1028,6 +1032,9 @@
         }
 
         /* Contact Grid */
+        .contact {
+            background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
+        }   
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
