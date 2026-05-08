@@ -273,7 +273,20 @@
 
         /* About Section */
         .about {
-            background: var(--bg-light);
+            background: linear-gradient(135deg, #003d7a 0%, #0052a3 100%);
+            color: var(--white);
+        }
+
+        .about h2 {
+            color: var(--white);
+        }
+
+        .about-text li {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .about-text li strong {
+            color: var(--white);
         }
 
         .about-content {
@@ -429,6 +442,10 @@
         }
 
         /* Mission & Vision Section */
+        .mission-vision-section {
+            background: var(--white);
+        }
+
         .mission-vision {
             display: grid;
             grid-template-columns: 1fr 1fr;
