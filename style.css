@@ -329,7 +329,7 @@
         }
 
         .about-text li strong {
-            color: var(--primary);
+            color: rgb(255, 255, 255);
         }
 
         @keyframes slideInRight {
