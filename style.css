@@ -364,7 +364,7 @@
         /* Services Section */
         .services {
             background: linear-gradient(135deg, #002855 0%, #003d7a 50%, #0052a3 100%);
-            background: var(--white);
+            color: var(--white);
         }
 
         .services-grid {
