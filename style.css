@@ -761,11 +761,11 @@
         }
 
         .team-level {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
-            flex-wrap: wrap;
+            justify-items: center;
         }
 
         .team-card {
@@ -777,7 +777,12 @@
             box-shadow: 0 10px 30px rgba(0, 61, 122, 0.1);
             transition: all 0.3s ease;
             animation: fadeIn 0.8s ease-out;
-            min-width: 250px;
+            width: 100%;
+            max-width: 300px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .team-card:hover {
