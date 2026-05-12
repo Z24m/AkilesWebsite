@@ -367,7 +367,7 @@
         }
 
         .services h2 {
-            color: var(--white);
+            color: var(--primary);
         }
 
         .services-grid {
